@@ -3,7 +3,7 @@
         <div class="row align-items-center">
             <!-- Immagine -->
             <div class="col-md-5">
-                {{-- <img src="" alt="Foto di " class="img-fluid rounded shadow-lg img"> --}}
+                <img src="{{Storage::url($article->image)}}" alt="immagine articolo" class="img-fluid rounded shadow-lg img">
             </div>
             <!-- Testo -->
             <div class="col-md-7">

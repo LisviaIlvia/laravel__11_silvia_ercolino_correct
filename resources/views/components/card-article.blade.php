@@ -1,5 +1,5 @@
 <div class="card" style="width: 18rem;">
-    {{-- <img src="..." class="card-img-top" alt="..."> --}}
+    <img src="{{Storage::url($article->image)}}" class="card-img-top" alt="immagine articolo">
     <div class="card-body">
       <h4 class="card-title">{{$article->title}}</h4>
       <h6 class="card-category">{{$article->category}}</h6>

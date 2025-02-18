@@ -1,4 +1,14 @@
 <x-layout>
+    {{-- snippet codice per mostrare errori di validazione --}}
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
     <div class="container-fluid">
         @if (session('message'))
             <div class="alert alert-success">
@@ -45,10 +55,10 @@
                     </div>
 
                     {{-- Immagine --}}
-                    {{-- <div class="mb-3">
+                    <div class="mb-3">
                         <label for="immagine" class="form-label fw-bold">Immagine</label>
-                        <input name="image" type="file" id="image" class="form-control">
-                    </div> --}}
+                        <input name="image" type="file" id="image" class="form-control" accept="image/*">
+                    </div>
 
                     <!-- Pulsante Submit -->
                     <div class="d-grid">

@@ -15,6 +15,7 @@ class Article extends Model
         'title',
         'category',
         'description',
-        'text'
+        'text',
+        'image'
     ];
 }
