@@ -9,6 +9,7 @@ use App\Http\Requests\ArticleRequest;
 
 class ArticleController extends Controller
 {
+   
     public function create()
     {
         return view('articles.create-article');

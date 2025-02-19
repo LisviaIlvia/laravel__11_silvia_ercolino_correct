@@ -21,8 +21,35 @@
                     <a class="nav-link" href="{{route('index.article')}}">I Nostri Articoli</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="{{route('index.product')}}">I Nostri Prodotti</a>
+                </li>
+                @auth
+                <li class="nav-item">
                     <a class="nav-link" href="{{route('create.article')}}">Aggiungi Articolo</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('create.product')}}">Aggiungi Prodotto</a>
+                </li>
+                @endauth
+                @guest
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('register')}}">Registrati</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('login')}}">Accedi</a>
+                </li>
+                @endguest
+                @auth
+                <li class="nav-item">
+                    <a class="nav-link" href="#">{{Auth::user()->name}}</a>
+                </li>
+                <li class="nav-item">
+                    <form method="POST" action="{{route('logout')}}">
+                        @csrf
+                        <button class="nav-link" type="submit">Logout</button>
+                    </form>
+                </li>
+                @endauth
             </ul>
         </div>
     </div>

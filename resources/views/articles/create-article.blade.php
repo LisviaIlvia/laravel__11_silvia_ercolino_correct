@@ -1,20 +1,7 @@
 <x-layout>
-    {{-- snippet codice per mostrare errori di validazione --}}
-    @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
-    <div class="container-fluid">
-        @if (session('message'))
-            <div class="alert alert-success">
-                {{ session('message') }}
-            </div>
-        @endif
+    <x-display-errors/>
+    <x-display-message/>
+        <div class="container-fluid">
         <div class="row height-custom justify-content-center align-items-center">
             <div class="col-12">
                 <h1 class="text-center display-4 title pt-5"> Aggiungi Articolo </h1>
