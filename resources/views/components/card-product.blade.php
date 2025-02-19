@@ -5,5 +5,9 @@
       {{-- <h6 class="card-description">{{$product->description}}</h6> --}}
       <h6 class="card-price my-4">{{$product->price}}<span>€</span></h6>
       <a href="{{route('show.product', compact('product'))}}" class="btn-custom ">Scopri di più</a>
+      @auth
+      <a href="{{route('edit.product', compact('product'))}}" class="btn-custom ">Modifica</a>
+      <a href="{{route('destroy.product', compact('product'))}}" class="btn-custom ">Elimina</a>
+      @endauth
     </div>
 </div>

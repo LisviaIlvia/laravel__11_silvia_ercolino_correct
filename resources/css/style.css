@@ -102,6 +102,10 @@
     .social-links a:hover {
         background-color: #00bcd4;
     }
+
+    .bg-pry {
+        background-color: #00bcd4;
+    }
     
     .newsletter-form {
         display: flex;

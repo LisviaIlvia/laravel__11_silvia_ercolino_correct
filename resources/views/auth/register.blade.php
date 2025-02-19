@@ -29,7 +29,7 @@
                       <label for="password_confirmation" class="form-label">Conferma Password</label>
                       <input type="password" name="password_confirmation" class="form-control" id="password_confirmation">
                     </div>
-                    <button type="submit" class="btn btn-primary">Registrati</button>
+                    <button type="submit" class="btn-custom">Registrati</button>
                   </form>
             </div>
         </div>

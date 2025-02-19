@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
+
+
 
 class ProductController extends Controller
 {
@@ -14,7 +18,7 @@ class ProductController extends Controller
     {
         $title = 'I Nostri Prodotti';
         $products = Product::all();
-        return view('products.index-product', compact('title', 'products')); 
+        return view('products.index-product', compact('title', 'products'));
         // 
     }
 
@@ -31,7 +35,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        if($request->hasFile('image')){
+        if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('images', 'public');
         } else {
 
@@ -54,7 +58,7 @@ class ProductController extends Controller
     public function show(Product $product)
     {
         // dd($product);
-        return view('products.show-aproduct', compact('product'));
+        return view('products.show-product', compact('product'));
     }
 
     /**
@@ -62,7 +66,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        return view('products.edit-product', compact('product'));
     }
 
     /**
@@ -70,7 +74,33 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
+            'price' => 'required|numeric|min:0',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+        ]);
+
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('images', 'public');
+
+            // Elimina l'immagine precedente se esiste
+            if ($product->image) {
+                Storage::disk('public')->delete($product->image);
+            }
+
+            $product->image = $imagePath;
+        }
+
+        $product->update([
+
+            'name' => $request->name,
+            'description' => $request->description,
+            'price' => $request->price,
+        ]);
+
+
+        return redirect()->back()->with('message', 'Prodotto aggiornato con successo.');
     }
 
     /**
@@ -78,6 +108,15 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        // Se il prodotto ha un'immagine, eliminarla dallo storage
+        if ($product->image) {
+            Storage::disk('public')->delete($product->image);
+        }
+
+        // Elimina il prodotto dal database
+        $product->delete();
+
+        // Reindirizza con un messaggio di conferma
+        return redirect()->back()->with('message', 'Prodotto eliminato con successo!');
     }
 }

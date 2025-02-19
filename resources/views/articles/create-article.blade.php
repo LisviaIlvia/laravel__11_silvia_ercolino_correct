@@ -1,58 +1,64 @@
 <x-layout>
-    <x-display-errors/>
-    <x-display-message/>
-        <div class="container-fluid">
-        <div class="row height-custom justify-content-center align-items-center">
-            <div class="col-12">
-                <h1 class="text-center display-4 title pt-5"> Aggiungi Articolo </h1>
+    <x-display-errors />
+    <x-display-message />
+
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-8 col-lg-6">
+                <div class="card shadow-lg border-0">
+                    <div class="card-header bg-danger text-white text-center">
+                        <h2 class="my-2">Aggiungi Articolo</h2>
+                    </div>
+                    <div class="card-body bg-light">
+                        <form action="{{ route('store.article') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+
+                            <!-- Titolo articolo -->
+                            <div class="mb-3">
+                                <label for="title" class="form-label fw-bold">Titolo</label>
+                                <input type="text" name="title" value="{{ old('title') }}" 
+                                       class="form-control rounded-pill" id="title" required>
+                            </div>
+
+                            <!-- Categoria -->
+                            <div class="mb-3">
+                                <label for="category" class="form-label fw-bold">Categoria</label>
+                                <input type="text" name="category" value="{{ old('category') }}" 
+                                       class="form-control rounded-pill" id="category" required>
+                            </div>
+
+                            <!-- Descrizione -->
+                            <div class="mb-3">
+                                <label for="description" class="form-label fw-bold">Descrizione</label>
+                                <input type="text" name="description" value="{{ old('description') }}" 
+                                       class="form-control rounded-pill" id="description" required>
+                            </div>
+
+                            <!-- Testo -->
+                            <div class="mb-3">
+                                <label for="text" class="form-label fw-bold">Testo</label>
+                                <textarea name="text" id="text" class="form-control rounded-3" 
+                                          rows="5" required>{{ old('text') }}</textarea>
+                            </div>
+
+                            <!-- Immagine -->
+                            <div class="mb-3">
+                                <label for="image" class="form-label fw-bold">Immagine</label>
+                                <input type="file" name="image" id="image" class="form-control rounded-pill" accept="image/*">
+                            </div>
+
+                            <!-- Pulsante Submit -->
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-danger btn-lg rounded-pill">Aggiungi Articolo</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
-       
-        <div class="row justify-content-center align-items-center">
-            <div class="col-12 col-md-6">
-                <form class="p-4 rounded-4 shadow bg-secondary-subtle mb-5" action="{{route('store.article')}}"
-                    method="POST" enctype="multipart/form-data"> {{-- AGGIUNGO L'ENCTYPE PER POTER PASSARE DATI PIù COMPLESSI DI SEMPLICI STRINGHE O NUMERI NEL FORM --}}
-                    @csrf
-
-                    <!-- Titolo articolo -->
-                    <div class="mb-3">
-                        <label for="titolo" class="form-label fw-bold">Titolo</label>
-                        <input name="title" type="text" value="{{old('title')}}" class="form-control" id="title"
-                            placeholder="Inserisci il titolo">
-                    </div>
-
-                    <!-- Categoria  -->
-                    <div class="mb-3">
-                        <label for="categoria" class="form-label fw-bold">Categoria</label>
-                        <input name="category" type="text" value="{{old('category')}}" class="form-control" id="category"
-                            placeholder="Inserisci categoria">
-                    </div>
-
-                    <!-- Descrizione -->
-                    <div class="mb-3">
-                        <label for="descrizione" class="form-label fw-bold">Descrizione</label>
-                        <input name="description" type="text" value="{{old('description')}}" class="form-control" id="description"
-                            placeholder="Descrizione dell'articolo...">
-                    </div>
-
-                    {{-- Testo --}}
-                    <div class="mb-3">
-                        <label for="testo" class="form-label fw-bold">Testo</label>
-                        <textarea name="text" id="text" class="form-control" rows="5" placeholder="Testo dell'articolo..." value="{{old('text')}}"> </textarea>
-                    </div>
-
-                    {{-- Immagine --}}
-                    <div class="mb-3">
-                        <label for="immagine" class="form-label fw-bold">Immagine</label>
-                        <input name="image" type="file" id="image" class="form-control" accept="image/*">
-                    </div>
-
-                    <!-- Pulsante Submit -->
-                    <div class="d-grid">
-                        <button type="submit" class="btn-custom btn-lg">Aggiungi Articolo</button>
-                    </div>
-                </form>
-            </div>
+        <!-- Pulsante per tornare alla lista dei prodotti -->
+        <div class="d-flex justify-content-center my-5">
+            <a href="{{route('index.article')}}" class="btn border-black  btn-danger btn-lg ">Torna agli articoli</a>
         </div>
     </div>   
 </x-layout>
