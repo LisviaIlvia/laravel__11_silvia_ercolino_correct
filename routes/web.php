@@ -15,13 +15,13 @@ Route::get('/article/index', [ArticleController::class, 'index'])->name('index.a
 Route::get('/article/detail/{id}', [ArticleController::class, 'detail'])->name('detail.article');
 
 //ProductController
-Route::get('/product/create', [ProductController::class, 'create'])->name('create.product')->gatherMiddleware('auth');
+Route::get('/product/create', [ProductController::class, 'create'])->name('create.product')->middleware('auth');
 Route::post('/product/store', [ProductController::class, 'store'])->name('store.product')->middleware('auth');
 Route::get('/product/index', [ProductController::class, 'index'])->name('index.product');
 Route::get('/product/show/{product}', [ProductController::class, 'show'])->name('show.product');
 Route::get('/product/edit/{product}', [ProductController::class, 'edit'])->name('edit.product')->middleware('auth');
-Route::put('/product/update/{product}', [ProductController::class, 'update'])->name('update.product');
-Route::get('/product/destroy/{product}', [ProductController::class, 'destroy'])->name('destroy.product');
+Route::put('/product/update/{product}', [ProductController::class, 'update'])->name('update.product')->middleware('auth');
+Route::delete('/product/destroy/{product}', [ProductController::class, 'destroy'])->name('destroy.product')->middleware('auth');
 
 
 

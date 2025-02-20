@@ -1,4 +1,5 @@
 <x-layout>
+    <x-display-message/>
     <div class="container">
         <h1 class="text-center display-4 title"> I Nostri Prodotti </h1>
         <div class="row justify-content-center mt-5">

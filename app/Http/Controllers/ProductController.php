@@ -35,19 +35,17 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('images', 'public');
-        } else {
-
-            $imagePath = 'public/images/default.jpg';
-        }
-
-        Product::create([
+       
+        $product = Product::create([
             'name' => $request->name,
             'description' => $request->description,
             'price' => $request->price,
-            'image' => $imagePath,
         ]);
+
+        if ($request->file('image')) {
+            $product->image = $request->file('image')->store('image', 'public');
+            $product->save();
+         }
 
         return redirect()->back()->with('message', 'Prodotto aggiunto con successo.');
     }
@@ -74,30 +72,18 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'required|string',
-            'price' => 'required|numeric|min:0',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
-        ]);
-
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('images', 'public');
-
-            // Elimina l'immagine precedente se esiste
-            if ($product->image) {
-                Storage::disk('public')->delete($product->image);
-            }
-
-            $product->image = $imagePath;
-        }
-
         $product->update([
 
             'name' => $request->name,
             'description' => $request->description,
             'price' => $request->price,
+            
         ]);
+
+        if ($request->file('image')) {
+            $product->image = $request->file('image')->store('image', 'public');
+            $product->save();
+         } 
 
 
         return redirect()->back()->with('message', 'Prodotto aggiornato con successo.');
@@ -108,11 +94,6 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        // Se il prodotto ha un'immagine, eliminarla dallo storage
-        if ($product->image) {
-            Storage::disk('public')->delete($product->image);
-        }
-
         // Elimina il prodotto dal database
         $product->delete();
 

@@ -22,7 +22,7 @@
                             <!-- Nome Prodotto -->
                             <div class="mb-3">
                                 <label for="name" class="form-label fw-bold">Nome</label>
-                                <input type="text" name="name" value="{{ old('name', $product->name) }}" 
+                                <input type="text" name="name" value="{{ $product->name }}" 
                                        class="form-control rounded-pill" id="name" required>
                             </div>
     
@@ -30,14 +30,14 @@
                             <div class="mb-3">
                                 <label for="description" class="form-label fw-bold">Descrizione</label>
                                 <textarea name="description" class="form-control rounded-3" 
-                                          id="description" rows="5" required>{{ old('description', $product->description) }}</textarea>
+                                          id="description" rows="5" required>{{ $product->description }}</textarea>
                             </div>
     
                             <!-- Prezzo -->
                             <div class="mb-3">
                                 <label for="price" class="form-label fw-bold">Prezzo</label>
                                 <div class="input-group">
-                                    <input type="text" name="price" value="{{ old('price', $product->price) }}" 
+                                    <input type="text" name="price" value="{{ $product->price }}" 
                                            class="form-control rounded-start-pill" id="price" required>
                                     <span class="input-group-text bg-white border rounded-end-pill">€</span>
                                 </div>
@@ -46,15 +46,12 @@
                             <!-- Immagine -->
                             <div class="mb-3">
                                 <label for="image" class="form-label fw-bold">Immagine</label>
-                                
-                                @if ($product->image)
                                     <div class="mb-3 text-center">
-                                        <img src="{{ asset('storage/' . $product->image) }}" alt="Immagine attuale" 
-                                             class="img-thumbnail rounded-3 shadow" width="150">
+                                        <img src="{{ Storage::url($product->image) }}" alt="Immagine attuale"
+                                            class="img-thumbnail rounded-3 shadow" width="150">
                                     </div>
-                                @endif
-                                
-                                <input type="file" name="image" id="image" class="form-control rounded-pill" accept="image/*">
+                                <input type="file" name="image" id="image"
+                                    class="form-control rounded-pill" accept="image/*">
                             </div>
     
                             <!-- Pulsante Submit -->
